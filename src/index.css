@@ -12,10 +12,13 @@ body {
   margin: 0 auto;
 }
 
+.container-grid {
+  width: 100%;
+}
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
+  grid-template-columns: repeat(1, 1fr);
 }
 
 .btn {
@@ -31,6 +34,10 @@ body {
 .btn-block {
   display: block;
   width: 100%;
+}
+
+h1, h2, h3 {
+  text-align: center;
 }
 
 hr {
@@ -65,16 +72,12 @@ select:focus {
   border-bottom: 2px solid #249758;
 }
 
-.fecha-hasta {
-  margin-left: 15px;
-}
-
 .fecha-hasta, .fecha-desde {
   flex-grow: 1;
 }
 
 .fechas {
-  display: flex;
+  display: block;
   width: 100%;
 }
 
@@ -102,8 +105,8 @@ select:focus {
   padding: 10px;
 }
 
-.descripcion-noticia h3 {
-  text-align: center;
+.descripcion-noticia p {
+  font-size: 12px;
 }
 
 .footer-noticia {
@@ -150,4 +153,26 @@ select:focus {
 .formulario a {
   display: block;
   margin-top: 20px;
+}
+
+@media (min-width: 720px) {
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fechas {
+    display: flex;
+  }
+
+  .fecha-hasta {
+    margin-left: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
