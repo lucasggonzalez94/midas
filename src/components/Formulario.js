@@ -37,18 +37,26 @@ const Formulario = () => {
     return (
         <div className='container'>
             <form className="container-form">
-                <input placeholder="Ej. Coronavirus" name='palabras-clave' id="palabras-clave" type="text"/>
                 <label htmlFor="palabras-clave">Palabras Clave</label>
+                <input placeholder="Ej. Coronavirus" name='palabras-clave' id="palabras-clave" type="text"/>
                 
                 <SelectCategorias/>
 
                 <SelectMedios/>
 
-                <input id="fecha-desde" type="date" name='fecha-desde'/>
-                <label htmlFor="fecha-desde">Desde</label>
+                <div className='fechas'>
+                    <div className='fecha-desde'>
+                        <label htmlFor="fecha-desde">Desde</label>
+                        <input id="fecha-desde" type="date" name='fecha-desde'/>
+                    </div>
 
-                <input id="fecha-hasta" type="date" name='fecha-hasta'/>
-                <label htmlFor="fecha-hasta">Hasta</label>
+                    <div className='fecha-hasta'>
+                        <label htmlFor="fecha-hasta">Hasta</label>
+                        <input id="fecha-hasta" type="date" name='fecha-hasta'/>
+                    </div>
+                </div>
+
+                <input type='submit' value='Buscar' className='btn btn-block'/>
             </form>
         </div>
     );

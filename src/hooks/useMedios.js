@@ -7,6 +7,7 @@ const useSelect = (stateInicial, opciones) => {
     
     const SelectMedios = () => (
         <Fragment>
+            <label>Medios</label>
             <select
                 value={state}
                 onChange={e => actualizarState(e.target.value)}
@@ -15,7 +16,6 @@ const useSelect = (stateInicial, opciones) => {
                     <option key={opcion._id} value={opcion._id}>{opcion.name}</option>
                 ))}
             </select>
-            <label>Medios</label>
         </Fragment>
     )
 

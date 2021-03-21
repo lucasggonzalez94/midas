@@ -6,7 +6,7 @@ const Register = () => {
         <div className='container'>
             <h2>Registro</h2>
 
-            <form className='container-form'>
+            <form className='formulario'>
                 <label htmlFor='username'>Nombre de Usuario</label>
                 <input type='text' id='username' name='username'/>
 
@@ -16,9 +16,9 @@ const Register = () => {
                 <label htmlFor='password'>Contraseña</label>
                 <input type='password' id='password' name='password'/>
 
-                <input type='submit' className='btn btn-block'/>
+                <input type='submit' className='btn btn-block' value='Registrarme'/>
 
-                <Link to='/register'>Registrarme</Link>
+                <Link to='/register'>Ya tengo cuenta. Iniciar sesión</Link>
             </form>
         </div>
     );

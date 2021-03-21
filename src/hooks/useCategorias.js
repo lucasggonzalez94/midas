@@ -7,6 +7,7 @@ const useSelect = (stateInicial, opciones) => {
     
     const SelectCategorias = () => (
         <Fragment>
+            <label>Categorías</label>
             <select
                 value={state}
                 onChange={e => actualizarState(e.target.value)}
@@ -15,7 +16,6 @@ const useSelect = (stateInicial, opciones) => {
                     <option key={opcion.value} value={opcion.value}>{opcion.label}</option>
                 ))}
             </select>
-            <label>Categorías</label>
         </Fragment>
     )
 
