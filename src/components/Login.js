@@ -32,17 +32,25 @@ const Login = (props) => {
         // Validacion ingreso de datos
         if (usuario.username !== '' && usuario.password !== '') {
             // Validacion datos correctos
-            if (usuariosRegistrados.map(usuarioRegistrado => usuarioRegistrado.username === usuario.username && usuarioRegistrado.password === usuario.password)[0]) {
-                setLogin(true);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Inicio de sesión correcto.'
-                });
-                props.history.push('/home');
+            if (usuariosRegistrados.map(usuarioRegistrado => usuarioRegistrado.username === usuario.username)[0]) {
+                if (usuariosRegistrados.map(usuarioRegistrado => usuarioRegistrado.password === usuario.password)[0]) {
+                    setLogin(true);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Inicio de sesión correcto.'
+                    });
+                    props.history.push('/home');
+                }else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Contraseña incorrecta.'
+                    });
+                    setLogin(false);
+                }
             } else {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Usuario o contraseña incorrectos.'
+                    title: 'Usuario  incorrecto.'
                 });
                 setLogin(false);
             }

@@ -30,23 +30,63 @@ const Register = (props) => {
     const submitUsuario = (e) => {
         e.preventDefault();
 
+        const regexEmail = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/);
+        const regexPass = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#.$($)$-$_])[A-Za-z\d$@$!%*?&#.$($)$-$_]{8,15}$/);
+
         // Validacion ingreso de datos
         if (usuario.email !== '' && usuario.username !== '' && usuario.password !== '') {
-            setUsuariosRegistrados([
-                ...usuariosRegistrados,
-                usuario
-            ]);
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Registrado correctamente.'
-            })
+            if (!usuariosRegistrados.map(usuarioRegistrado => usuarioRegistrado.email === usuario.email)[0]) {
 
-            props.history.push('/')
+                if (!usuariosRegistrados.map(usuarioRegistrado => usuarioRegistrado.username === usuario.username)[0]) {
+
+                    if (regexEmail.test(usuario.email)) {
+
+                        if (regexPass.test(usuario.password)) {
+                            setUsuariosRegistrados([
+                                ...usuariosRegistrados,
+                                usuario
+                            ]);
+                
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Registrado correctamente.'
+                            })
+                
+                            props.history.push('/')
+                        } else {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Formato de contraseña incorrecto.',
+                                text: 'Minimo 8 caracteres, maximo 15, al menos una letra mayúscula, al menos una letra minúscula, al menos un dígito, no espacios en blanco, al menos 1 caracter especial'
+                            })
+                        }
+                    } else {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Formato de email incorrecto.'
+                        })
+                    }
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Nombre de usuario ya existente, pruebe con otro.'
+                    })
+                }
+            } else {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ya existe un usuario con el mismo email.'
+                })
+            }
         } else {
             Swal.fire({
                 icon: 'error',
-                title: 'Complete los campos correctamente.'
+                title: 'Complete todos los campos correctamente.'
             })
         }
     }
