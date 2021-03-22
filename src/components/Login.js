@@ -18,13 +18,10 @@ const Login = (props) => {
             setUsuariosRegistrados(JSON.parse(localStorage.getItem('usuariosRegistrados')));
             return;
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const guardarLocalStorage = (usuarios) => {
-        localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
-    }
-
-    guardarLocalStorage(usuariosRegistrados);
+    
 
     const guardarUsuario = (e) => {
         setUsuario({

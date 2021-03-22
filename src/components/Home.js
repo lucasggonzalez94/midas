@@ -41,12 +41,12 @@ const Home = () => {
     useEffect(() => {
         const consultarMedios = async () => {
 
-            const url = 'https://api.jornalia.net/api/v1/providers?apiKey=17fc1a0a411144fb8b6824eabd6d31b2';
+            const url = 'https://api.jornalia.net/api/v1/providers?apiKey=f36f0dc2f3204a3c821130384e208604';
             const respuesta = await fetch(url);
             const resultado = await respuesta.json();
             setMedios(resultado.providers);
         }
-        consultarMedios();
+        // consultarMedios();
 
         const busquedaNoticias = async () => {
 
@@ -72,12 +72,12 @@ const Home = () => {
                 setFechaHasta(fechaString);
             }
             
-            const url = `https://api.jornalia.net/api/v1/articles?apiKey=17fc1a0a411144fb8b6824eabd6d31b2&search=${palabras}&providers=${medio}&categories=${categoria}&startDate=${fechaInicio}&endDate=${fechaFin}`;
+            const url = `https://api.jornalia.net/api/v1/articles?apiKey=f36f0dc2f3204a3c821130384e208604&search=${palabras}&providers=${medio}&categories=${categoria}&startDate=${fechaInicio}&endDate=${fechaFin}`;
             const respuesta = await fetch(url);
             const resultado = await respuesta.json();
             setNoticias(resultado.articles);
         }
-        busquedaNoticias();
+        // busquedaNoticias();
     }, [parametrosBusqueda]);
 
     return (

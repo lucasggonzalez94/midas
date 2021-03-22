@@ -4,7 +4,8 @@ import Swal from 'sweetalert2';
 
 const Register = (props) => {
 
-    const [usuariosRegistrados, setUsuariosRegistrados] = useState(JSON.parse(localStorage.getItem('usuariosRegistrados')) || []);
+    const {usuariosRegistrados, setUsuariosRegistrados} = props;
+    
     const [usuario, setUsuario] = useState({
 		username: '',
 		email: '',
@@ -15,15 +16,9 @@ const Register = (props) => {
         if (!localStorage.getItem('usuariosRegistrados')) {
             localStorage.setItem('usuariosRegistrados', JSON.stringify(usuariosRegistrados));
             setUsuariosRegistrados(JSON.parse(localStorage.getItem('usuariosRegistrados')));
-            return;
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    const guardarLocalStorage = (usuarios) => {
-        localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
-    }
-
-    guardarLocalStorage(usuariosRegistrados);
 
     const guardarUsuario = (e) => {
         setUsuario({

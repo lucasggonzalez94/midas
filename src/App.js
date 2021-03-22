@@ -6,23 +6,25 @@ import Register from './components/Register';
 
 function App() {
 
-	
+	const [usuariosRegistrados, setUsuariosRegistrados] = useState(JSON.parse(localStorage.getItem('usuariosRegistrados')) || []);
 	const [login, setLogin] = useState(false);
 
-	useEffect(() => {
-		localStorage.setItem('usuariosRegistrados', JSON.stringify([]));
-	}, [])
+	const guardarLocalStorage = (usuarios) => {
+        localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
+    }
+
+    guardarLocalStorage(usuariosRegistrados);
 
   	return (
     	<Router>
       		<Switch>
         		<Route
-          			exact path='/'
+          			exact path='/home'
           			component={Home}
         		/>
 
 				<Route
-          			exact path='/login'
+          			exact path='/'
           			component={() => <Login
 							login={login}
 							setLogin={setLogin}
@@ -31,7 +33,10 @@ function App() {
 
 				<Route
           			exact path='/register'
-          			component={Register}
+          			component={() => <Register
+							usuariosRegistrados={usuariosRegistrados}
+							setUsuariosRegistrados={setUsuariosRegistrados}
+						/>}
         		/>
       		</Switch>
     	</Router>
