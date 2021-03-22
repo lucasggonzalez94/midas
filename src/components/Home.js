@@ -23,11 +23,20 @@ const Home = () => {
     ]
 
     const [medios, setMedios] = useState([]);
+
+    const [palabrasClave, setPalabrasClave] = useState('coronavirus');
     const [categoria, SelectCategorias] = useCategorias('ULTIMAS_NOTICIAS', OPCIONES_CATEGORIAS);
     const [medio, SelectMedios] = useMedios('TN', medios);
     const [fechaDesde, setFechaDesde] = useState('2020-02-01');
     const [fechaHasta, setFechaHasta] = useState('');
     const [noticias, setNoticias] = useState({});
+    const [parametrosBusqueda, setParametrosBusqueda] = useState({
+        palabras: palabrasClave,
+        categoria,
+        medio,
+        fechaInicio: fechaDesde,
+        fechaFin: fechaHasta
+    })
 
     useEffect(() => {
         const consultarMedios = async () => {
@@ -41,31 +50,51 @@ const Home = () => {
 
         const busquedaNoticias = async () => {
 
-            if (fechaHasta === '') {
+            const {palabras, categoria, medio, fechaInicio, fechaFin} = parametrosBusqueda;
+
+            if (fechaFin === '') {
                 const fechaHoy = new Date();
                 const year = fechaHoy.getFullYear();
-                const month = fechaHoy.getMonth() + 1;
-                const day = fechaHoy.getDate();
+                let month = fechaHoy.getMonth() + 1;
+                let day = fechaHoy.getDate();
 
-                setFechaHasta(`${year}-${month}-${day}`);
+                if (month <= 9) {
+                    month = `0${fechaHoy.getMonth() + 1}`;
+                }
+
+                if (day <= 9) {
+                    day = `0${fechaHoy.getDate()}`;
+                }
+
+                const fechaString = `${year}-${month}-${day}`;
+
+                parametrosBusqueda.fechaFin = fechaString;
+                setFechaHasta(fechaString);
             }
             
-            const url = `https://api.jornalia.net/api/v1/articles?apiKey=17fc1a0a411144fb8b6824eabd6d31b2&search=coronavirus+d%C3%B3lar&providers=${medio}&categories=${categoria}&startDate=${fechaDesde}&endDate=${fechaHasta}`;
+            const url = `https://api.jornalia.net/api/v1/articles?apiKey=17fc1a0a411144fb8b6824eabd6d31b2&search=${palabras}&providers=${medio}&categories=${categoria}&startDate=${fechaInicio}&endDate=${fechaFin}`;
             const respuesta = await fetch(url);
             const resultado = await respuesta.json();
             setNoticias(resultado.articles);
         }
         busquedaNoticias();
-    }, [])
+    }, [parametrosBusqueda]);
 
     return (
         <Fragment>
             <NavBar/>
             <Formulario
+                palabrasClave={palabrasClave}
+                categoria={categoria}
+                medio={medio}
+                fechaDesde={fechaDesde}
+                fechaHasta={fechaHasta}
+                setPalabrasClave={setPalabrasClave}
                 SelectCategorias={SelectCategorias}
                 SelectMedios={SelectMedios}
                 setFechaDesde={setFechaDesde}
                 setFechaHasta={setFechaHasta}
+                setParametrosBusqueda={setParametrosBusqueda}
             />
             <GridNoticias
                 noticias={noticias}

@@ -7,9 +7,18 @@ const GridNoticias = ({noticias}) => {
             <h3>Resultados</h3>
 
             <div className='grid'>
-                <Noticia
-                    noticias={noticias}
-                />
+                {
+                    (
+                        noticias.length > 0 ?
+                        noticias.map(noticia =>(
+                            <Noticia
+                                key={noticia._id}
+                                noticia={noticia}
+                            />
+                        )) :
+                        <p>No se encontraron resultados.</p>
+                    )
+                }
             </div>
         </div>
     );

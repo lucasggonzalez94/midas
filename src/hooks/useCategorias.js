@@ -11,6 +11,7 @@ const useSelect = (stateInicial, opciones) => {
             <select
                 value={state}
                 onChange={e => actualizarState(e.target.value)}
+                name='categoria'
             >
                 {opciones.map(opcion => (
                     <option key={opcion.value} value={opcion.value}>{opcion.label}</option>
