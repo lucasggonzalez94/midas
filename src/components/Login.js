@@ -1,7 +1,55 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import {Link, withRouter} from 'react-router-dom';
+import Swal from 'sweetalert2';
 
-const Login = () => {
+const Login = (props) => {
+
+    const {login, setLogin} = props
+
+    const [usuariosRegistrados, setUsuariosRegistrados] = useState(JSON.parse(localStorage.getItem('usuariosRegistrados')) || []);
+    const [usuario, setUsuario] = useState({
+		username: '',
+		password: ''
+	});
+
+    useEffect(() => {
+        if (!localStorage.getItem('usuariosRegistrados')) {
+            localStorage.setItem('usuariosRegistrados', JSON.stringify(usuariosRegistrados));
+            setUsuariosRegistrados(JSON.parse(localStorage.getItem('usuariosRegistrados')));
+            return;
+        }
+    }, [])
+
+    const guardarLocalStorage = (usuarios) => {
+        localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
+    }
+
+    guardarLocalStorage(usuariosRegistrados);
+
+    const guardarUsuario = (e) => {
+        setUsuario({
+            ...usuario,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    const submitUsuario = (e) => {
+        e.preventDefault();
+
+        // Validacion
+        if (usuario.username !== '' && usuario.password !== '') {
+            setUsuariosRegistrados([
+                ...usuariosRegistrados,
+                usuario
+            ]);
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Complete los campos correctamente.'
+            })
+        }
+    }
+
     return (
         <div className='container'>
             <h2>Inicio de Sesión</h2>
@@ -21,4 +69,4 @@ const Login = () => {
     );
 }
  
-export default Login;
+export default withRouter(Login);

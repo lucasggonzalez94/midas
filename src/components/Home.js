@@ -26,7 +26,7 @@ const Home = () => {
 
     const [palabrasClave, setPalabrasClave] = useState('coronavirus');
     const [categoria, SelectCategorias] = useCategorias('ULTIMAS_NOTICIAS', OPCIONES_CATEGORIAS);
-    const [medio, SelectMedios] = useMedios('TN', medios);
+    const [medio, SelectMedios] = useMedios('LaNacion', medios);
     const [fechaDesde, setFechaDesde] = useState('2020-02-01');
     const [fechaHasta, setFechaHasta] = useState('');
     const [noticias, setNoticias] = useState({});
