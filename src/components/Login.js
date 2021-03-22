@@ -29,11 +29,15 @@ const Login = (props) => {
     const submitUsuario = (e) => {
         e.preventDefault();
 
-        // Validacion ingreso de datos
+        // Validacion de campos vacios
         if (usuario.username !== '' && usuario.password !== '') {
-            // Validacion datos correctos
+
+            // Validacion usuario existente
             if (usuariosRegistrados.map(usuarioRegistrado => usuarioRegistrado.username === usuario.username)[0]) {
+
+                // Validacion contraseña correcta
                 if (usuariosRegistrados.map(usuarioRegistrado => usuarioRegistrado.password === usuario.password)[0]) {
+
                     setLogin(true);
                     Swal.fire({
                         icon: 'success',
@@ -41,6 +45,7 @@ const Login = (props) => {
                     });
                     props.history.push('/home');
                 }else {
+
                     Swal.fire({
                         icon: 'error',
                         title: 'Contraseña incorrecta.'
@@ -48,13 +53,15 @@ const Login = (props) => {
                     setLogin(false);
                 }
             } else {
+
                 Swal.fire({
                     icon: 'error',
-                    title: 'Usuario  incorrecto.'
+                    title: 'Usuario incorrecto.'
                 });
                 setLogin(false);
             }
         } else {
+            
             Swal.fire({
                 icon: 'error',
                 title: 'Complete los campos correctamente.'

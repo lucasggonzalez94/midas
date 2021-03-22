@@ -33,15 +33,19 @@ const Register = (props) => {
         const regexEmail = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/);
         const regexPass = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#.$($)$-$_])[A-Za-z\d$@$!%*?&#.$($)$-$_]{8,15}$/);
 
-        // Validacion ingreso de datos
+        // Validacion de campos vacios
         if (usuario.email !== '' && usuario.username !== '' && usuario.password !== '') {
 
+            // Validacion de email existente
             if (!usuariosRegistrados.map(usuarioRegistrado => usuarioRegistrado.email === usuario.email)[0]) {
 
+                // Validacion de usuario existente
                 if (!usuariosRegistrados.map(usuarioRegistrado => usuarioRegistrado.username === usuario.username)[0]) {
 
+                    // Validacion email valido
                     if (regexEmail.test(usuario.email)) {
 
+                        // Validacion contraseña valida
                         if (regexPass.test(usuario.password)) {
                             setUsuariosRegistrados([
                                 ...usuariosRegistrados,
@@ -84,6 +88,7 @@ const Register = (props) => {
                 })
             }
         } else {
+            
             Swal.fire({
                 icon: 'error',
                 title: 'Complete todos los campos correctamente.'
