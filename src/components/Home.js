@@ -1,11 +1,18 @@
 import React, {Fragment, useEffect, useState} from 'react';
+import {withRouter} from 'react-router-dom';
 import Formulario from './Formulario';
 import GridNoticias from './GridNoticias';
 import NavBar from './NavBar';
 import useCategorias from '../hooks/useCategorias';
 import useMedios from '../hooks/useMedios';
 
-const Home = () => {
+const Home = (props) => {
+
+    const {login, setLogin} = props;
+
+    if (!login || login === 'false') {
+        props.history.push('/');
+    }
 
     const OPCIONES_CATEGORIAS = [
         {value: 'ULTIMAS_NOTICIAS', label: 'Últimas noticias'},
@@ -46,7 +53,7 @@ const Home = () => {
             const resultado = await respuesta.json();
             setMedios(resultado.providers);
         }
-        // consultarMedios();
+        consultarMedios();
 
         const busquedaNoticias = async () => {
 
@@ -77,18 +84,22 @@ const Home = () => {
             const resultado = await respuesta.json();
             setNoticias(resultado.articles);
         }
-        // busquedaNoticias();
-    }, [parametrosBusqueda]);
+        busquedaNoticias();
+    }, [parametrosBusqueda, login]);
 
     return (
         <Fragment>
-            <NavBar/>
+            <NavBar
+                login={login}
+                setLogin={setLogin}
+            />
             <Formulario
                 palabrasClave={palabrasClave}
                 categoria={categoria}
                 medio={medio}
                 fechaDesde={fechaDesde}
                 fechaHasta={fechaHasta}
+                parametrosBusqueda={parametrosBusqueda}
                 setPalabrasClave={setPalabrasClave}
                 SelectCategorias={SelectCategorias}
                 SelectMedios={SelectMedios}
@@ -103,4 +114,4 @@ const Home = () => {
     );
 }
  
-export default Home;
+export default withRouter(Home);

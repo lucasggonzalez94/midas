@@ -30,7 +30,7 @@ const Register = (props) => {
     const submitUsuario = (e) => {
         e.preventDefault();
 
-        // Validacion
+        // Validacion ingreso de datos
         if (usuario.email !== '' && usuario.username !== '' && usuario.password !== '') {
             setUsuariosRegistrados([
                 ...usuariosRegistrados,
@@ -41,6 +41,8 @@ const Register = (props) => {
                 icon: 'success',
                 title: 'Registrado correctamente.'
             })
+
+            props.history.push('/')
         } else {
             Swal.fire({
                 icon: 'error',
@@ -68,7 +70,7 @@ const Register = (props) => {
 
                 <input type='submit' className='btn btn-block' value='Registrarme' onChange={guardarUsuario}/>
 
-                <Link to='/login'>Ya tengo cuenta. Iniciar sesión</Link>
+                <Link to='/'>Ya tengo cuenta. Iniciar sesión</Link>
             </form>
         </div>
     );

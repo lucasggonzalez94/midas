@@ -4,24 +4,20 @@ import Swal from 'sweetalert2';
 
 const Login = (props) => {
 
-    const {login, setLogin} = props
+    const {usuariosRegistrados, login, setLogin} = props;
 
-    const [usuariosRegistrados, setUsuariosRegistrados] = useState(JSON.parse(localStorage.getItem('usuariosRegistrados')) || []);
     const [usuario, setUsuario] = useState({
 		username: '',
 		password: ''
 	});
 
     useEffect(() => {
-        if (!localStorage.getItem('usuariosRegistrados')) {
-            localStorage.setItem('usuariosRegistrados', JSON.stringify(usuariosRegistrados));
-            setUsuariosRegistrados(JSON.parse(localStorage.getItem('usuariosRegistrados')));
-            return;
+        if (!localStorage.getItem('login')) {
+            localStorage.setItem('login', login);
+            setLogin(localStorage.getItem('login'));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    
 
     const guardarUsuario = (e) => {
         setUsuario({
@@ -33,17 +29,28 @@ const Login = (props) => {
     const submitUsuario = (e) => {
         e.preventDefault();
 
-        // Validacion
+        // Validacion ingreso de datos
         if (usuario.username !== '' && usuario.password !== '') {
-            setUsuariosRegistrados([
-                ...usuariosRegistrados,
-                usuario
-            ]);
+            // Validacion datos correctos
+            if (usuariosRegistrados.map(usuarioRegistrado => usuarioRegistrado.username === usuario.username && usuarioRegistrado.password === usuario.password)[0]) {
+                setLogin(true);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Inicio de sesión correcto.'
+                });
+                props.history.push('/home');
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario o contraseña incorrectos.'
+                });
+                setLogin(false);
+            }
         } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Complete los campos correctamente.'
-            })
+            });
         }
     }
 
@@ -51,12 +58,15 @@ const Login = (props) => {
         <div className='container'>
             <h2>Inicio de Sesión</h2>
 
-            <form className='formulario'>
+            <form
+                className='formulario'
+                onSubmit={submitUsuario}
+            >
                 <label htmlFor='username'>Nombre de Usuario</label>
-                <input type='text' id='username' name='username'/>
+                <input type='text' id='username' name='username' required onChange={guardarUsuario}/>
 
                 <label htmlFor='password'>Contraseña</label>
-                <input type='password' id='password' name='password'/>
+                <input type='password' id='password' name='password' required onChange={guardarUsuario}/>
 
                 <input type='submit' className='btn btn-block' value='Iniciar Sesión'/>
 

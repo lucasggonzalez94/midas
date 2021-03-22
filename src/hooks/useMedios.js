@@ -12,6 +12,7 @@ const useSelect = (stateInicial, opciones) => {
                 value={state}
                 onChange={e => actualizarState(e.target.value)}
                 name='medio'
+                required
             >
                 {opciones.map(opcion => (
                     <option key={opcion._id} value={opcion._id}>{opcion.name}</option>
