@@ -1,22 +1,40 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 
-const Noticia = () => {
+const Noticia = ({noticias}) => {
     return (
-        <div className='card'>
-            <div className='imagen-noticia'>
-                <img src='imagen.jpg' alt='descripcion'/>
-                <h4>Medio</h4>
+
+        (noticias.length > 0 ?
+        noticias.map(noticia => (
+            <div className='card'>
+                {
+                    (
+                        noticia.imageUrl ?
+                        <div className='imagen-noticia'>
+                            <img src={noticia.imageUrl} alt={noticia.title}/>
+                            <h4>{noticia.provider.name}</h4>
+                        </div> :
+                        <h4>{noticia.provider.name}</h4>
+                    )
+                }
+                <div className='descripcion-noticia'>
+                    <h3>{noticia.title}</h3>
+                    {
+                        (
+                            noticia.description ?
+                            <p>{noticia.description}</p> :
+                            null
+                        )
+                    }
+
+                    <p>Publicado el: {noticia.publishedAt.split('T')[0]}</p>
+                </div>
+                <div className='footer-noticia'>
+                <hr/>
+                    <a href={noticia.sourceUrl} className='btn' target='_blank' rel='noreferrer'>Ver Noticia</a>
+                </div>
             </div>
-            <div className='descripcion-noticia'>
-                <h3>Titulo Noticia</h3>
-                <p>Descripcion de ejemplo</p>
-            </div>
-            <hr/>
-            <div className='footer-noticia'>
-                <Link to='https://www.google.com'>Ver Noticia</Link>
-            </div>
-        </div>
+        )) :
+        <p>No se encontraron resultados.</p>)
     );
 }
  
