@@ -32,11 +32,13 @@ const Login = (props) => {
         // Validacion de campos vacios
         if (usuario.username !== '' && usuario.password !== '') {
 
+            let usuarioIngresado = usuariosRegistrados.find(usuarioRegistrado => usuarioRegistrado.username === usuario.username);
+
             // Validacion usuario existente
-            if (usuariosRegistrados.find(usuarioRegistrado => usuarioRegistrado.username === usuario.username)) {
+            if (usuarioIngresado) {
 
                 // Validacion contraseña correcta
-                if (usuariosRegistrados.find(usuarioRegistrado => usuarioRegistrado.password === usuario.password)) {
+                if (usuarioIngresado.password === usuario.password) {
 
                     setLogin(true);
                     Swal.fire({
