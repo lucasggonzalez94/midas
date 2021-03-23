@@ -8,7 +8,7 @@ const NavBar = ({login, setLogin}) => {
             <ul>
                 {
                     !login ? <li><Link to='/login'>Iniciar Sesión</Link></li> :
-                    <li><Link onClick={() => setLogin(false)}>Cerrar Sesión</Link></li>
+                    <li><Link to='/' onClick={() => setLogin(false)}>Cerrar Sesión</Link></li>
                 }
             </ul>
         </nav>
