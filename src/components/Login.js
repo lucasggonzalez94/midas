@@ -32,10 +32,8 @@ const Login = (props) => {
         // Validacion de campos vacios
         if (usuario.username !== '' && usuario.password !== '') {
 
-            console.log(usuariosRegistrados.find(usuarioRegistrado => usuarioRegistrado.username === usuario.username))
             // Validacion usuario existente
             if (usuariosRegistrados.find(usuarioRegistrado => usuarioRegistrado.username === usuario.username)) {
-
 
                 // Validacion contraseña correcta
                 if (usuariosRegistrados.find(usuarioRegistrado => usuarioRegistrado.password === usuario.password)) {
